@@ -1,0 +1,12 @@
+Raw llama3.3:70b output (captured by wrapping _construct_diff_from_changes_json):
+
+{"changes": [{"old_stripped": "result = subprocess.run(f\"echo checking {host}\", shell=True, capture_output=True, text=True, check=False)", "new_stripped": "result = subprocess.run([\"echo\", \"checking\", host], capture_output=True, text=True, check=False)"}, {"old_stripped": "shell=True", "new_stripped": null}]}
+
+Source in the repository (the statement spans three physical lines):
+
+    result = subprocess.run(
+        f"echo checking {host}", shell=True, capture_output=True, text=True, check=False
+    )
+
+The client matches old_stripped against ONE source line, so neither entry matches ->
+"ValueError: no valid changes found in JSON".

@@ -1,0 +1,8 @@
+# Runtime has no third-party dependencies (Python standard library only).
+# Install the project itself (editable):
+-e .
+
+# Development / quality tools (same as the [dev] extras in pyproject.toml)
+build>=1.2
+mypy>=1.10
+ruff>=0.8

@@ -1,0 +1,14 @@
+.venv/
+runs/
+fixtures/
+_scratch/
+documents/
+.git/
+**/node_modules/
+**/__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+out/
+*.pdf
+*.docx

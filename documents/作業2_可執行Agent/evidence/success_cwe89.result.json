@@ -1,0 +1,530 @@
+{
+  "all_candidates": [
+    {
+      "candidate_id": "0b6ac1fd1c615220d49a4d9e66404c82b5bcf09f895c9c6e3d916cddbbc0b090",
+      "diff": "diff --git a/app.py b/app.py\n--- a/app.py\n+++ b/app.py\n@@ -2,5 +2,5 @@\n \n \n def find_user(conn: sqlite3.Connection, username: str) -> list[tuple[int, str]]:\n-    query = f\"SELECT id, username FROM users WHERE username = '{username}'\"\n+    query = \"SELECT id, username FROM users WHERE username = ?\"\n-    return conn.execute(query).fetchall()\n+    return conn.execute(query, (username,)).fetchall()\n",
+      "generated_by": "llama3.3:70b",
+      "rationale": "model pool sample 1",
+      "schema_version": "1.0",
+      "target_location": {
+        "confidence": 1.0,
+        "end_line": 6,
+        "file_path": "app.py",
+        "function_name": "find_user",
+        "rationale": "The user name is interpolated into the SQL text instead of being passed separately.",
+        "schema_version": "1.0",
+        "start_line": 4
+      },
+      "task_id": "course-cwe89"
+    }
+  ],
+  "attempts": 1,
+  "baseline": {
+    "schema_version": "1.0",
+    "snapshot": {
+      "archive_sha256": "c425b2e1d632678f42931349c21e5f34d2c309f45351d206b14bf8d570d3c129",
+      "commit": "702a35873e4c7030a87216fd3913ce57591e4f27",
+      "schema_version": "1.0",
+      "tree_digest": "a4f15ecbf93114d7a1f783ac56c7d77b27271838"
+    },
+    "stages": [
+      {
+        "artifacts": [
+          "harness-sha256:9b313a5da8badd78ce1a3badcfdc785a550c6debae01c1ee386389b2050132aa"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "trusted_harness_verified",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.harness.initial",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [
+          "validation-plan-sha256:4cf3be6548a1cf9c720e8c5bbe28b2c20e06bda5ac6f1e00c7c7291cc85a0b7c"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "snapshot_materialized",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.snapshot.build",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "-m",
+              "py_compile",
+              "app.py"
+            ],
+            "cwd": ".",
+            "name": "compile",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 1.0550973999779671,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "ok",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.build.0",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "test_regression.py"
+            ],
+            "cwd": ".",
+            "name": "regression",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 0.849483500001952,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "ok",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.test.0",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "snapshot_materialized",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.snapshot.security",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [
+          "harness-sha256:9b313a5da8badd78ce1a3badcfdc785a550c6debae01c1ee386389b2050132aa"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "trusted_harness_verified",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.harness.security",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "/harness/poc.py"
+            ],
+            "cwd": ".",
+            "name": "poc",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 0.913080400088802,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "{\"harness_ok\":true,\"outcome\":\"vulnerable\",\"schema_version\":\"1.0\"}",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "baseline_vulnerability_reproduced",
+        "schema_version": "1.0",
+        "security_outcome": "vulnerable",
+        "stage": "baseline.poc",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "scanner_not_configured",
+        "schema_version": "1.0",
+        "security_outcome": "not_available",
+        "stage": "baseline.scanner",
+        "verdict": "skipped"
+      }
+    ],
+    "summary": "baseline vulnerability evidence established",
+    "task_id": "course-cwe89",
+    "usable": true
+  },
+  "budget": {
+    "batch_size": 2,
+    "max_candidates": 6,
+    "max_cost_usd": 5.0,
+    "max_elapsed_seconds": 1800.0,
+    "max_model_calls": 20,
+    "max_rounds": 3,
+    "max_validations": 6,
+    "schema_version": "1.0"
+  },
+  "chosen": {
+    "candidate_id": "0b6ac1fd1c615220d49a4d9e66404c82b5bcf09f895c9c6e3d916cddbbc0b090",
+    "diff": "diff --git a/app.py b/app.py\n--- a/app.py\n+++ b/app.py\n@@ -2,5 +2,5 @@\n \n \n def find_user(conn: sqlite3.Connection, username: str) -> list[tuple[int, str]]:\n-    query = f\"SELECT id, username FROM users WHERE username = '{username}'\"\n+    query = \"SELECT id, username FROM users WHERE username = ?\"\n-    return conn.execute(query).fetchall()\n+    return conn.execute(query, (username,)).fetchall()\n",
+    "generated_by": "llama3.3:70b",
+    "rationale": "model pool sample 1",
+    "schema_version": "1.0",
+    "target_location": {
+      "confidence": 1.0,
+      "end_line": 6,
+      "file_path": "app.py",
+      "function_name": "find_user",
+      "rationale": "The user name is interpolated into the SQL text instead of being passed separately.",
+      "schema_version": "1.0",
+      "start_line": 4
+    },
+    "task_id": "course-cwe89"
+  },
+  "cost": {
+    "candidates_seen": 1,
+    "candidates_validated": 1,
+    "completion_tokens": 86,
+    "cost_usd": 0.0,
+    "elapsed_seconds": 27.925501300022006,
+    "model_calls": 1,
+    "persistence_seconds": 1.0,
+    "prompt_tokens": 393,
+    "rounds": 1,
+    "schema_version": "1.0"
+  },
+  "input_fingerprint": "e1f41f8916189682bef04ed9b89a6a971a29f19b64f96a9c8b9327588636d52f",
+  "run_id": "5a1dd291735942d38bbaf67de2976b58",
+  "schema_version": "1.0",
+  "task_id": "course-cwe89",
+  "trace": [
+    {
+      "attributes": [
+        [
+          "run_id",
+          "5a1dd291735942d38bbaf67de2976b58"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_started",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 0,
+      "task_id": "course-cwe89"
+    },
+    {
+      "attributes": [],
+      "candidate_id": null,
+      "event": "baseline_ready",
+      "message": "baseline vulnerability evidence established",
+      "schema_version": "1.0",
+      "sequence": 1,
+      "task_id": "course-cwe89"
+    },
+    {
+      "attributes": [
+        [
+          "locations",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "localized",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 2,
+      "task_id": "course-cwe89"
+    },
+    {
+      "attributes": [
+        [
+          "count",
+          "1"
+        ],
+        [
+          "round",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "candidates_generated",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 3,
+      "task_id": "course-cwe89"
+    },
+    {
+      "attributes": [],
+      "candidate_id": "0b6ac1fd1c615220d49a4d9e66404c82b5bcf09f895c9c6e3d916cddbbc0b090",
+      "event": "critic_pass",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 4,
+      "task_id": "course-cwe89"
+    },
+    {
+      "attributes": [
+        [
+          "verdict",
+          "verified_fix"
+        ]
+      ],
+      "candidate_id": "0b6ac1fd1c615220d49a4d9e66404c82b5bcf09f895c9c6e3d916cddbbc0b090",
+      "event": "candidate_validated",
+      "message": "required differential security evidence passed",
+      "schema_version": "1.0",
+      "sequence": 5,
+      "task_id": "course-cwe89"
+    },
+    {
+      "attributes": [],
+      "candidate_id": "0b6ac1fd1c615220d49a4d9e66404c82b5bcf09f895c9c6e3d916cddbbc0b090",
+      "event": "verified_fix_selected",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 6,
+      "task_id": "course-cwe89"
+    },
+    {
+      "attributes": [
+        [
+          "chosen",
+          "0b6ac1fd1c615220d49a4d9e66404c82b5bcf09f895c9c6e3d916cddbbc0b090"
+        ],
+        [
+          "elapsed",
+          "26.925501"
+        ],
+        [
+          "input_fingerprint",
+          "e1f41f8916189682bef04ed9b89a6a971a29f19b64f96a9c8b9327588636d52f"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_finished",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 7,
+      "task_id": "course-cwe89"
+    }
+  ],
+  "validations": [
+    {
+      "candidate_id": "0b6ac1fd1c615220d49a4d9e66404c82b5bcf09f895c9c6e3d916cddbbc0b090",
+      "overall": "verified_fix",
+      "schema_version": "1.0",
+      "snapshot": {
+        "archive_sha256": "c425b2e1d632678f42931349c21e5f34d2c309f45351d206b14bf8d570d3c129",
+        "commit": "702a35873e4c7030a87216fd3913ce57591e4f27",
+        "schema_version": "1.0",
+        "tree_digest": "a4f15ecbf93114d7a1f783ac56c7d77b27271838"
+      },
+      "stages": [
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "baseline_usable",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.baseline",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [
+            "harness-sha256:9b313a5da8badd78ce1a3badcfdc785a550c6debae01c1ee386389b2050132aa"
+          ],
+          "command_result": null,
+          "message": "",
+          "reason_code": "trusted_harness_verified",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.harness.initial",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "snapshot_materialized",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.snapshot.build",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "patch_applied",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.patch.build",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": {
+            "command": {
+              "argv": [
+                "python",
+                "-m",
+                "py_compile",
+                "app.py"
+              ],
+              "cwd": ".",
+              "name": "compile",
+              "required": true,
+              "schema_version": "1.0",
+              "timeout_seconds": 30.0
+            },
+            "duration_seconds": 0.954628299921751,
+            "reason_code": "ok",
+            "returncode": 0,
+            "schema_version": "1.0",
+            "stderr": "",
+            "stdout": "",
+            "truncated": false,
+            "verdict": "pass"
+          },
+          "message": "",
+          "reason_code": "ok",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.build.0",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": {
+            "command": {
+              "argv": [
+                "python",
+                "test_regression.py"
+              ],
+              "cwd": ".",
+              "name": "regression",
+              "required": true,
+              "schema_version": "1.0",
+              "timeout_seconds": 30.0
+            },
+            "duration_seconds": 0.8921083000022918,
+            "reason_code": "ok",
+            "returncode": 0,
+            "schema_version": "1.0",
+            "stderr": "",
+            "stdout": "",
+            "truncated": false,
+            "verdict": "pass"
+          },
+          "message": "",
+          "reason_code": "ok",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.test.0",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "snapshot_materialized",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.snapshot.security",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "patch_applied",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.patch.security",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [
+            "harness-sha256:9b313a5da8badd78ce1a3badcfdc785a550c6debae01c1ee386389b2050132aa"
+          ],
+          "command_result": null,
+          "message": "",
+          "reason_code": "trusted_harness_verified",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.harness.security",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": {
+            "command": {
+              "argv": [
+                "python",
+                "/harness/poc.py"
+              ],
+              "cwd": ".",
+              "name": "poc",
+              "required": true,
+              "schema_version": "1.0",
+              "timeout_seconds": 30.0
+            },
+            "duration_seconds": 1.0685309001710266,
+            "reason_code": "ok",
+            "returncode": 0,
+            "schema_version": "1.0",
+            "stderr": "",
+            "stdout": "{\"harness_ok\":true,\"outcome\":\"blocked\",\"schema_version\":\"1.0\"}",
+            "truncated": false,
+            "verdict": "pass"
+          },
+          "message": "",
+          "reason_code": "patched_exploit_blocked",
+          "schema_version": "1.0",
+          "security_outcome": "blocked",
+          "stage": "candidate.poc",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "scanner_not_configured",
+          "schema_version": "1.0",
+          "security_outcome": "not_available",
+          "stage": "candidate.scanner",
+          "verdict": "skipped"
+        }
+      ],
+      "summary": "required differential security evidence passed"
+    }
+  ]
+}

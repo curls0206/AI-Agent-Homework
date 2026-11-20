@@ -1,0 +1,23 @@
+run_id=e6b24c57748f4cc5879af890ab9efe4f  task_id=demo-cwe-79
+
+ 1  Input        使用者提供漏洞任務 demo-cwe-79
+ 2  Action       Tool Call: Oracle.baseline → Podman 容器執行 build / regression / PoC
+ 3  Observation  baseline 可用：baseline vulnerability evidence established
+ 4  Action       Localizer 定位可疑程式碼
+ 5  Observation  取得 1 個位置
+ 6  Action       第 1 輪：Generator 呼叫 LLM 產生候選修補
+ 7  Observation  產生 4 個候選
+ 8  Decision     Critic 預審通過候選 a7f3219f，送往驗證
+ 9  Decision     Critic 預審通過候選 c43411a0，送往驗證
+10  Decision     Critic 預審通過候選 d7c523c4，送往驗證
+11  Decision     Critic 預審通過候選 dee72540，送往驗證
+12  Action       Tool Call: Oracle.validate(a7f3219f) → Podman 容器驗證
+13  Observation  verdict=verified_fix
+14  Action       Tool Call: Oracle.validate(c43411a0) → Podman 容器驗證
+15  Observation  verdict=rejected  （candidate.poc fail/patched_exploit_persists）
+16  Action       Tool Call: Oracle.validate(d7c523c4) → Podman 容器驗證
+17  Observation  verdict=rejected  （candidate.test.0 fail/nonzero_exit）
+18  Action       Tool Call: Oracle.validate(dee72540) → Podman 容器驗證
+19  Observation  verdict=rejected  （candidate.patch.build fail/patch_check_failed）
+20  Decision     選用 verified_fix 候選 a7f3219f
+21  Result       chosen=a7f3219f  elapsed=3.891274s

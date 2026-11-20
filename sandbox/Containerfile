@@ -1,0 +1,10 @@
+FROM python:3.11-alpine@sha256:25976e9d34a0fab1f278cae931f34c8303d97bf0c0d7f85b6b4dcf641d7702a4
+
+LABEL org.opencontainers.image.title="vulnrepair isolation test fixture"
+LABEL org.opencontainers.image.description="Pinned, minimal sandbox image: build, regression and PoC commands run inside it"
+
+RUN addgroup -g 10001 runner \
+    && adduser -D -H -u 10001 -G runner runner
+
+WORKDIR /workspace
+USER 10001:10001

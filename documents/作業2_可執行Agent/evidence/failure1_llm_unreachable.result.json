@@ -1,0 +1,311 @@
+{
+  "all_candidates": [],
+  "attempts": 2,
+  "baseline": {
+    "schema_version": "1.0",
+    "snapshot": {
+      "archive_sha256": "ec8cda9515b7e3d99a05a1860be593e50c11f17aba388ec4bf6076154486fba2",
+      "commit": "b74b7600714383b1ad7163ce7b702a22d6804be5",
+      "schema_version": "1.0",
+      "tree_digest": "7445d13024e860c6c93b1c0e0b03b861b5bae168"
+    },
+    "stages": [
+      {
+        "artifacts": [
+          "harness-sha256:10356a806d8412c6c864d6e6ddf098ba7a7512ac470f983d1ebd12d59fc0bb71"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "trusted_harness_verified",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.harness.initial",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [
+          "validation-plan-sha256:26b3222fa50eba2d518e37e967b02df9236bf8a1e34982f3dd85992a5108035a"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "snapshot_materialized",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.snapshot.build",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "-m",
+              "py_compile",
+              "app.py"
+            ],
+            "cwd": ".",
+            "name": "compile",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 0.9394133999012411,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "ok",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.build.0",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "test_regression.py"
+            ],
+            "cwd": ".",
+            "name": "regression",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 0.7995973001234233,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "ok",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.test.0",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "snapshot_materialized",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.snapshot.security",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [
+          "harness-sha256:10356a806d8412c6c864d6e6ddf098ba7a7512ac470f983d1ebd12d59fc0bb71"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "trusted_harness_verified",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.harness.security",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "/harness/poc.py"
+            ],
+            "cwd": ".",
+            "name": "poc",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 0.927780200028792,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "{\"harness_ok\":true,\"outcome\":\"vulnerable\",\"schema_version\":\"1.0\"}",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "baseline_vulnerability_reproduced",
+        "schema_version": "1.0",
+        "security_outcome": "vulnerable",
+        "stage": "baseline.poc",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "scanner_not_configured",
+        "schema_version": "1.0",
+        "security_outcome": "not_available",
+        "stage": "baseline.scanner",
+        "verdict": "skipped"
+      }
+    ],
+    "summary": "baseline vulnerability evidence established",
+    "task_id": "course-cwe79",
+    "usable": true
+  },
+  "budget": {
+    "batch_size": 3,
+    "max_candidates": 24,
+    "max_cost_usd": 5.0,
+    "max_elapsed_seconds": 2400.0,
+    "max_model_calls": 20,
+    "max_rounds": 2,
+    "max_validations": 20,
+    "schema_version": "1.0"
+  },
+  "chosen": null,
+  "cost": {
+    "candidates_seen": 0,
+    "candidates_validated": 0,
+    "completion_tokens": 0,
+    "cost_usd": 0.0,
+    "elapsed_seconds": 8.138169100042433,
+    "model_calls": 2,
+    "persistence_seconds": 1.0,
+    "prompt_tokens": 0,
+    "rounds": 2,
+    "schema_version": "1.0"
+  },
+  "input_fingerprint": "9f6e9702f06a46ea270714c6cec87e9b9bca9b39962acd131c0b9912da97d98e",
+  "run_id": "73985bb884e5498095d5b3bfbd4901dc",
+  "schema_version": "1.0",
+  "task_id": "course-cwe79",
+  "trace": [
+    {
+      "attributes": [
+        [
+          "run_id",
+          "73985bb884e5498095d5b3bfbd4901dc"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_started",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 0,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [],
+      "candidate_id": null,
+      "event": "baseline_ready",
+      "message": "baseline vulnerability evidence established",
+      "schema_version": "1.0",
+      "sequence": 1,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [
+        [
+          "locations",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "localized",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 2,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [
+        [
+          "count",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "provider_errors",
+      "message": "llama3.3:70b sample 1: ConnectionError: Ollama at http://127.0.0.1:9 unreachable: [WinError 10061] 無法連線，因為目標電腦拒絕連線。",
+      "schema_version": "1.0",
+      "sequence": 3,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [
+        [
+          "round",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "round_empty",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 4,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [
+        [
+          "count",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "provider_errors",
+      "message": "llama3.3:70b sample 1: ConnectionError: Ollama at http://127.0.0.1:9 unreachable: [WinError 10061] 無法連線，因為目標電腦拒絕連線。",
+      "schema_version": "1.0",
+      "sequence": 5,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [
+        [
+          "round",
+          "2"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "round_empty",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 6,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [
+        [
+          "chosen",
+          "none"
+        ],
+        [
+          "elapsed",
+          "7.138169"
+        ],
+        [
+          "input_fingerprint",
+          "9f6e9702f06a46ea270714c6cec87e9b9bca9b39962acd131c0b9912da97d98e"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_finished",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 7,
+      "task_id": "course-cwe79"
+    }
+  ],
+  "validations": []
+}

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="VulnRepair 漏洞修復任務觀測台">
+  <title>VulnRepair Control Plane</title>
+  <link rel="stylesheet" href="/assets/dashboard.css">
+  <script src="/assets/dashboard.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至主要內容</a>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand" aria-label="VulnRepair Control Plane">
+        <span class="brand-mark" aria-hidden="true">VR</span>
+        <span class="brand-copy">
+          <strong>VulnRepair</strong>
+          <span>CONTROL PLANE</span>
+        </span>
+      </div>
+
+      <div class="topbar-actions">
+        <p class="connection" id="connection-status" role="status" aria-live="polite">
+          <span class="connection-mark" aria-hidden="true"></span>
+          <span id="connection-label">正在連線</span>
+        </p>
+        <label class="auto-refresh" for="auto-refresh">
+          <input id="auto-refresh" type="checkbox" checked>
+          <span>自動刷新</span>
+          <span class="refresh-interval">10s</span>
+        </label>
+        <button class="button button-primary" id="refresh-button" type="button">立即刷新</button>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="run-rail" aria-labelledby="run-rail-title">
+        <div class="rail-heading">
+          <div>
+            <p class="section-kicker">RUN INDEX</p>
+            <h1 id="run-rail-title">修復任務</h1>
+          </div>
+          <output id="run-count" aria-label="任務數量">0</output>
+        </div>
+
+        <div class="filters">
+          <label for="run-search">搜尋任務</label>
+          <input id="run-search" type="search" placeholder="Task ID 或 Run ID" autocomplete="off" spellcheck="false">
+
+          <label for="verdict-filter">結果篩選</label>
+          <select id="verdict-filter">
+            <option value="all">全部結果</option>
+            <option value="verified_fix">已驗證修復</option>
+            <option value="rejected">已拒絕</option>
+            <option value="inconclusive">證據不足</option>
+            <option value="infra_error">基礎設施錯誤</option>
+          </select>
+        </div>
+
+        <div class="rail-state" id="rail-loading" aria-label="正在載入任務">
+          <span class="skeleton skeleton-wide"></span>
+          <span class="skeleton"></span>
+          <span class="skeleton skeleton-wide"></span>
+          <span class="skeleton"></span>
+        </div>
+
+        <div class="rail-state rail-message" id="rail-empty" hidden>
+          <strong>尚無修復任務</strong>
+          <p>執行 repair 或 demo 後，任務會出現在這裡。</p>
+        </div>
+
+        <div class="rail-state rail-message rail-error" id="rail-error" hidden>
+          <strong>無法讀取任務</strong>
+          <p id="rail-error-message">API 暫時無法使用。</p>
+          <button class="button button-secondary" id="rail-retry" type="button">重試</button>
+        </div>
+
+        <div class="rail-state rail-message" id="rail-no-results" hidden>
+          <strong>沒有符合條件的任務</strong>
+          <p>調整搜尋文字或結果篩選。</p>
+        </div>
+
+        <nav class="run-list" id="run-list" aria-label="修復任務清單"></nav>
+
+        <footer class="rail-footer">
+          <span>最後同步</span>
+          <time id="last-synced">尚未同步</time>
+        </footer>
+      </aside>
+
+      <main class="main-panel" id="main-content" tabindex="-1">
+        <section class="detail-state" id="detail-placeholder" aria-labelledby="placeholder-title">
+          <p class="section-kicker">OBSERVABILITY</p>
+          <h2 id="placeholder-title">選擇一筆任務開始觀察</h2>
+          <p>檢查修補候選、驗證證據、執行軌跡與實際差異。</p>
+        </section>
+
+        <section class="detail-state rail-error" id="detail-error" hidden aria-labelledby="detail-error-title">
+          <p class="section-kicker">DETAIL ERROR</p>
+          <h2 id="detail-error-title">無法讀取任務細節</h2>
+          <p id="detail-error-message">API 暫時無法使用。</p>
+          <button class="button button-secondary" id="detail-retry" type="button">重試此任務</button>
+        </section>
+
+        <div id="dashboard" hidden>
+          <section class="run-header" aria-labelledby="selected-task-title">
+            <div class="run-title-block">
+              <p class="section-kicker">SELECTED RUN</p>
+              <h2 id="selected-task-title">-</h2>
+              <code id="selected-run-id">-</code>
+            </div>
+            <div class="run-verdict">
+              <span>最終結果</span>
+              <strong class="status-badge" id="selected-status">等待資料</strong>
+            </div>
+          </section>
+
+          <dl class="kpi-strip" aria-label="任務摘要">
+            <div class="kpi"><dt>候選修補</dt><dd id="kpi-candidates">0</dd><span id="kpi-candidates-note">尚無候選</span></div>
+            <div class="kpi"><dt>驗證次數</dt><dd id="kpi-validations">0</dd><span id="kpi-validations-note">尚未驗證</span></div>
+            <div class="kpi"><dt>模型呼叫</dt><dd id="kpi-model-calls">0</dd><span id="kpi-token-note">0 tokens</span></div>
+            <div class="kpi"><dt>執行時間</dt><dd id="kpi-elapsed">0s</dd><span id="kpi-rounds-note">0 rounds</span></div>
+            <div class="kpi"><dt>模型成本</dt><dd id="kpi-cost">$0.0000</dd><span id="kpi-cost-note">預算未設定</span></div>
+          </dl>
+
+          <div class="overview-grid">
+            <section class="panel meta-panel" aria-labelledby="meta-title">
+              <header class="panel-heading"><h3 id="meta-title">任務識別</h3><span>IMMUTABLE INPUT</span></header>
+              <dl class="meta-list">
+                <div><dt>Task ID</dt><dd><code id="meta-task-id">-</code></dd></div>
+                <div><dt>Run ID</dt><dd><code id="meta-run-id">-</code></dd></div>
+                <div><dt>Input fingerprint</dt><dd><code id="meta-fingerprint">-</code></dd></div>
+                <div><dt>Snapshot commit</dt><dd><code id="meta-commit">-</code></dd></div>
+                <div><dt>Tree digest</dt><dd><code id="meta-tree">-</code></dd></div>
+                <div><dt>Attempts</dt><dd id="meta-attempts">0</dd></div>
+              </dl>
+            </section>
+
+            <section class="panel baseline-panel" aria-labelledby="baseline-title">
+              <header class="panel-heading"><h3 id="baseline-title">基準線與預算</h3><span>TRUST BOUNDARY</span></header>
+              <div class="baseline-state">
+                <span class="status-badge" id="baseline-badge">尚未建立</span>
+                <p id="baseline-summary">沒有可用的基準線資料。</p>
+              </div>
+              <dl class="budget-list" id="budget-list"></dl>
+            </section>
+          </div>
+
+          <section class="panel matrix-panel" aria-labelledby="matrix-title">
+            <header class="panel-heading panel-heading-wide">
+              <div><h3 id="matrix-title">候選驗證矩陣</h3><p>選擇候選以檢視證據與 diff。</p></div>
+              <span id="matrix-summary">0 CANDIDATES</span>
+            </header>
+            <div class="table-wrap" id="validation-matrix"></div>
+          </section>
+
+          <div class="inspection-grid">
+            <section class="panel evidence-panel" aria-labelledby="evidence-title">
+              <header class="panel-heading panel-heading-wide">
+                <div><h3 id="evidence-title">階段證據</h3><p id="evidence-candidate">尚未選擇候選</p></div>
+                <span id="evidence-count">0 STAGES</span>
+              </header>
+              <div class="evidence-list" id="evidence-list"></div>
+            </section>
+
+            <section class="panel trace-panel" aria-labelledby="trace-title">
+              <header class="panel-heading panel-heading-wide">
+                <div><h3 id="trace-title">執行軌跡</h3><p>依事件序列重建決策路徑。</p></div>
+                <span id="trace-count">0 EVENTS</span>
+              </header>
+              <ol class="trace-list" id="trace-list"></ol>
+            </section>
+          </div>
+
+          <section class="panel diff-panel" aria-labelledby="diff-title">
+            <header class="panel-heading panel-heading-wide">
+              <div><h3 id="diff-title">修補差異</h3><p id="diff-candidate">尚未選擇候選</p></div>
+              <div class="diff-actions">
+                <span id="diff-stats">+0 / -0</span>
+                <button class="button button-secondary" id="copy-diff" type="button" disabled>複製 diff</button>
+              </div>
+            </header>
+            <div class="diff-context" id="diff-context"></div>
+            <div class="diff-viewer" id="diff-viewer" tabindex="0" aria-label="Unified diff"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <p class="sr-only" id="announcer" role="status" aria-live="polite"></p>
+</body>
+</html>

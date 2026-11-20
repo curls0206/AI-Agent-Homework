@@ -1,0 +1,993 @@
+{
+  "all_candidates": [
+    {
+      "candidate_id": "6d127eda4136948aecc775c5d2bbe15001959b58817d28e60fef1e7b1b2cf092",
+      "diff": "diff --git a/app.py b/app.py\n--- a/app.py\n+++ b/app.py\n@@ -4,6 +4,6 @@\n \n \n def read_file(name: str) -> str:\n-    path = os.path.join(BASE_DIR, name)\n+    path = os.path.join(BASE_DIR, name.lstrip('/').lstrip('\\')\n     with open(path, encoding=\"utf-8\") as handle:\n         return handle.read()\n",
+      "generated_by": "llama3.3:70b",
+      "rationale": "model pool sample 1",
+      "schema_version": "1.0",
+      "target_location": {
+        "confidence": 1.0,
+        "end_line": 9,
+        "file_path": "app.py",
+        "function_name": "read_file",
+        "rationale": "The caller-supplied file name is used to open a file without checking that the result stays inside the intended directory.",
+        "schema_version": "1.0",
+        "start_line": 6
+      },
+      "task_id": "course-cwe22"
+    },
+    {
+      "candidate_id": "7afe49d2cfd03b54e8be0aee7b7b3acd5837047ecded0dee284f7f4ec22522a1",
+      "diff": "diff --git a/app.py b/app.py\n--- a/app.py\n+++ b/app.py\n@@ -3,7 +3,9 @@\n BASE_DIR = \"files\"\n \n \n-def read_file(name: str) -> str:\n+def read_file(name: str) -> str:\n+if \"..\" in name or name.startswith(\"/\") or name.startswith(\"../\") or \"/\" in name:\n-    path = os.path.join(BASE_DIR, name)\n+    path = os.path.abspath(os.path.join(BASE_DIR, name))\n-    with open(path, encoding=\"utf-8\") as handle:\n+    if os.path.commonpath([os.path.abspath(BASE_DIR), path]) == os.path.abspath(BASE_DIR):\n+    with open(path, encoding=\"utf-8\") as handle:\n         return handle.read()\n",
+      "generated_by": "llama3.3:70b",
+      "rationale": "model pool sample 1",
+      "schema_version": "1.0",
+      "target_location": {
+        "confidence": 1.0,
+        "end_line": 9,
+        "file_path": "app.py",
+        "function_name": "read_file",
+        "rationale": "The caller-supplied file name is used to open a file without checking that the result stays inside the intended directory.",
+        "schema_version": "1.0",
+        "start_line": 6
+      },
+      "task_id": "course-cwe22"
+    },
+    {
+      "candidate_id": "cab094b7a35767e7e4f585b46730bca4eac59f2d189c83a22fa5c10a349b765d",
+      "diff": "diff --git a/app.py b/app.py\n--- a/app.py\n+++ b/app.py\n@@ -3,7 +3,7 @@\n BASE_DIR = \"files\"\n \n \n-def read_file(name: str) -> str:\n+def read_file(filename: str) -> str:\n-    path = os.path.join(BASE_DIR, name)\n+    path = os.path.join(BASE_DIR, filename.lstrip(\"/\").lstrip(\"../\"))\n     with open(path, encoding=\"utf-8\") as handle:\n         return handle.read()\n",
+      "generated_by": "llama3.3:70b",
+      "rationale": "model pool sample 1",
+      "schema_version": "1.0",
+      "target_location": {
+        "confidence": 1.0,
+        "end_line": 9,
+        "file_path": "app.py",
+        "function_name": "read_file",
+        "rationale": "The caller-supplied file name is used to open a file without checking that the result stays inside the intended directory.",
+        "schema_version": "1.0",
+        "start_line": 6
+      },
+      "task_id": "course-cwe22"
+    },
+    {
+      "candidate_id": "f294b3857c41b91dbb00ae371cb9957f2bd084ffc43614037df71697efd5c886",
+      "diff": "diff --git a/app.py b/app.py\n--- a/app.py\n+++ b/app.py\n@@ -3,7 +3,7 @@\n BASE_DIR = \"files\"\n \n \n-def read_file(name: str) -> str:\n+def read_file(filename: str) -> str:\n-    path = os.path.join(BASE_DIR, name)\n+    filename = os.path.basename(filename); path = os.path.join(BASE_DIR, filename)\n     with open(path, encoding=\"utf-8\") as handle:\n         return handle.read()\n",
+      "generated_by": "llama3.3:70b",
+      "rationale": "model pool sample 1",
+      "schema_version": "1.0",
+      "target_location": {
+        "confidence": 1.0,
+        "end_line": 9,
+        "file_path": "app.py",
+        "function_name": "read_file",
+        "rationale": "The caller-supplied file name is used to open a file without checking that the result stays inside the intended directory.",
+        "schema_version": "1.0",
+        "start_line": 6
+      },
+      "task_id": "course-cwe22"
+    }
+  ],
+  "attempts": 4,
+  "baseline": {
+    "schema_version": "1.0",
+    "snapshot": {
+      "archive_sha256": "a9a865db55ee17d6c90cf1b248c7d090d548fd40997b4370e2fdc4b86707dc91",
+      "commit": "3164ce200e24194a691835ed88d46a6467737839",
+      "schema_version": "1.0",
+      "tree_digest": "b143bdfdf7b386469b26e05edc9d205952602f3b"
+    },
+    "stages": [
+      {
+        "artifacts": [
+          "harness-sha256:1d90f3374b65406876082b2cc53a736d130514ff1307654550281629fde9102c"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "trusted_harness_verified",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.harness.initial",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [
+          "validation-plan-sha256:e6698e3f3ced3cee9d737f41aa3ffdcb600de8051d7407b6dac66870f78a5dd8"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "snapshot_materialized",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.snapshot.build",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "-m",
+              "py_compile",
+              "app.py"
+            ],
+            "cwd": ".",
+            "name": "compile",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 0.971343900077045,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "ok",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.build.0",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "test_regression.py"
+            ],
+            "cwd": ".",
+            "name": "regression",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 0.7482024000491947,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "ok",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.test.0",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "snapshot_materialized",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.snapshot.security",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [
+          "harness-sha256:1d90f3374b65406876082b2cc53a736d130514ff1307654550281629fde9102c"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "trusted_harness_verified",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.harness.security",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "/harness/poc.py"
+            ],
+            "cwd": ".",
+            "name": "poc",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 1.1864903001114726,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "{\"harness_ok\":true,\"outcome\":\"vulnerable\",\"schema_version\":\"1.0\"}",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "baseline_vulnerability_reproduced",
+        "schema_version": "1.0",
+        "security_outcome": "vulnerable",
+        "stage": "baseline.poc",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "scanner_not_configured",
+        "schema_version": "1.0",
+        "security_outcome": "not_available",
+        "stage": "baseline.scanner",
+        "verdict": "skipped"
+      }
+    ],
+    "summary": "baseline vulnerability evidence established",
+    "task_id": "course-cwe22",
+    "usable": true
+  },
+  "budget": {
+    "batch_size": 2,
+    "max_candidates": 8,
+    "max_cost_usd": 5.0,
+    "max_elapsed_seconds": 1800.0,
+    "max_model_calls": 20,
+    "max_rounds": 4,
+    "max_validations": 8,
+    "schema_version": "1.0"
+  },
+  "chosen": null,
+  "cost": {
+    "candidates_seen": 4,
+    "candidates_validated": 4,
+    "completion_tokens": 527,
+    "cost_usd": 0.0,
+    "elapsed_seconds": 132.73223059996963,
+    "model_calls": 4,
+    "persistence_seconds": 1.0,
+    "prompt_tokens": 1677,
+    "rounds": 4,
+    "schema_version": "1.0"
+  },
+  "input_fingerprint": "a9999dfa0cd70c1bf680ec431bd35fe1a2469821ecf9b8266c9c9a56cb089fb7",
+  "run_id": "b8c2cf2c821945c8aa5a84245bd0e936",
+  "schema_version": "1.0",
+  "task_id": "course-cwe22",
+  "trace": [
+    {
+      "attributes": [
+        [
+          "run_id",
+          "b8c2cf2c821945c8aa5a84245bd0e936"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_started",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 0,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [],
+      "candidate_id": null,
+      "event": "baseline_ready",
+      "message": "baseline vulnerability evidence established",
+      "schema_version": "1.0",
+      "sequence": 1,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [
+        [
+          "locations",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "localized",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 2,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [
+        [
+          "count",
+          "1"
+        ],
+        [
+          "round",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "candidates_generated",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 3,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [],
+      "candidate_id": "7afe49d2cfd03b54e8be0aee7b7b3acd5837047ecded0dee284f7f4ec22522a1",
+      "event": "critic_pass",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 4,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [
+        [
+          "verdict",
+          "rejected"
+        ]
+      ],
+      "candidate_id": "7afe49d2cfd03b54e8be0aee7b7b3acd5837047ecded0dee284f7f4ec22522a1",
+      "event": "candidate_validated",
+      "message": "candidate build or regression tests did not pass",
+      "schema_version": "1.0",
+      "sequence": 5,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [
+        [
+          "count",
+          "1"
+        ],
+        [
+          "round",
+          "2"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "candidates_generated",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 6,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [],
+      "candidate_id": "f294b3857c41b91dbb00ae371cb9957f2bd084ffc43614037df71697efd5c886",
+      "event": "critic_pass",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 7,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [
+        [
+          "verdict",
+          "rejected"
+        ]
+      ],
+      "candidate_id": "f294b3857c41b91dbb00ae371cb9957f2bd084ffc43614037df71697efd5c886",
+      "event": "candidate_validated",
+      "message": "candidate build or regression tests did not pass",
+      "schema_version": "1.0",
+      "sequence": 8,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [
+        [
+          "count",
+          "1"
+        ],
+        [
+          "round",
+          "3"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "candidates_generated",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 9,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [],
+      "candidate_id": "6d127eda4136948aecc775c5d2bbe15001959b58817d28e60fef1e7b1b2cf092",
+      "event": "critic_pass",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 10,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [
+        [
+          "verdict",
+          "rejected"
+        ]
+      ],
+      "candidate_id": "6d127eda4136948aecc775c5d2bbe15001959b58817d28e60fef1e7b1b2cf092",
+      "event": "candidate_validated",
+      "message": "candidate build or regression tests did not pass",
+      "schema_version": "1.0",
+      "sequence": 11,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [
+        [
+          "count",
+          "1"
+        ],
+        [
+          "round",
+          "4"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "candidates_generated",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 12,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [],
+      "candidate_id": "cab094b7a35767e7e4f585b46730bca4eac59f2d189c83a22fa5c10a349b765d",
+      "event": "critic_pass",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 13,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [
+        [
+          "verdict",
+          "rejected"
+        ]
+      ],
+      "candidate_id": "cab094b7a35767e7e4f585b46730bca4eac59f2d189c83a22fa5c10a349b765d",
+      "event": "candidate_validated",
+      "message": "security signal persists after patch",
+      "schema_version": "1.0",
+      "sequence": 14,
+      "task_id": "course-cwe22"
+    },
+    {
+      "attributes": [
+        [
+          "chosen",
+          "none"
+        ],
+        [
+          "elapsed",
+          "131.732231"
+        ],
+        [
+          "input_fingerprint",
+          "a9999dfa0cd70c1bf680ec431bd35fe1a2469821ecf9b8266c9c9a56cb089fb7"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_finished",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 15,
+      "task_id": "course-cwe22"
+    }
+  ],
+  "validations": [
+    {
+      "candidate_id": "7afe49d2cfd03b54e8be0aee7b7b3acd5837047ecded0dee284f7f4ec22522a1",
+      "overall": "rejected",
+      "schema_version": "1.0",
+      "snapshot": {
+        "archive_sha256": "a9a865db55ee17d6c90cf1b248c7d090d548fd40997b4370e2fdc4b86707dc91",
+        "commit": "3164ce200e24194a691835ed88d46a6467737839",
+        "schema_version": "1.0",
+        "tree_digest": "b143bdfdf7b386469b26e05edc9d205952602f3b"
+      },
+      "stages": [
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "baseline_usable",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.baseline",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [
+            "harness-sha256:1d90f3374b65406876082b2cc53a736d130514ff1307654550281629fde9102c"
+          ],
+          "command_result": null,
+          "message": "",
+          "reason_code": "trusted_harness_verified",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.harness.initial",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "snapshot_materialized",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.snapshot.build",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "patch_applied",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.patch.build",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": {
+            "command": {
+              "argv": [
+                "python",
+                "-m",
+                "py_compile",
+                "app.py"
+              ],
+              "cwd": ".",
+              "name": "compile",
+              "required": true,
+              "schema_version": "1.0",
+              "timeout_seconds": 30.0
+            },
+            "duration_seconds": 1.0737218998838216,
+            "reason_code": "nonzero_exit",
+            "returncode": 1,
+            "schema_version": "1.0",
+            "stderr": "Sorry: IndentationError: expected an indented block after function definition on line 6 (app.py, line 7)",
+            "stdout": "",
+            "truncated": false,
+            "verdict": "fail"
+          },
+          "message": "",
+          "reason_code": "nonzero_exit",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.build.0",
+          "verdict": "fail"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "blocked_by_build",
+          "schema_version": "1.0",
+          "security_outcome": "not_available",
+          "stage": "candidate.test.0",
+          "verdict": "skipped"
+        }
+      ],
+      "summary": "candidate build or regression tests did not pass"
+    },
+    {
+      "candidate_id": "f294b3857c41b91dbb00ae371cb9957f2bd084ffc43614037df71697efd5c886",
+      "overall": "rejected",
+      "schema_version": "1.0",
+      "snapshot": {
+        "archive_sha256": "a9a865db55ee17d6c90cf1b248c7d090d548fd40997b4370e2fdc4b86707dc91",
+        "commit": "3164ce200e24194a691835ed88d46a6467737839",
+        "schema_version": "1.0",
+        "tree_digest": "b143bdfdf7b386469b26e05edc9d205952602f3b"
+      },
+      "stages": [
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "baseline_usable",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.baseline",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [
+            "harness-sha256:1d90f3374b65406876082b2cc53a736d130514ff1307654550281629fde9102c"
+          ],
+          "command_result": null,
+          "message": "",
+          "reason_code": "trusted_harness_verified",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.harness.initial",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "snapshot_materialized",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.snapshot.build",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "patch_applied",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.patch.build",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": {
+            "command": {
+              "argv": [
+                "python",
+                "-m",
+                "py_compile",
+                "app.py"
+              ],
+              "cwd": ".",
+              "name": "compile",
+              "required": true,
+              "schema_version": "1.0",
+              "timeout_seconds": 30.0
+            },
+            "duration_seconds": 0.9688371999654919,
+            "reason_code": "ok",
+            "returncode": 0,
+            "schema_version": "1.0",
+            "stderr": "",
+            "stdout": "",
+            "truncated": false,
+            "verdict": "pass"
+          },
+          "message": "",
+          "reason_code": "ok",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.build.0",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": {
+            "command": {
+              "argv": [
+                "python",
+                "test_regression.py"
+              ],
+              "cwd": ".",
+              "name": "regression",
+              "required": true,
+              "schema_version": "1.0",
+              "timeout_seconds": 30.0
+            },
+            "duration_seconds": 0.8591626998968422,
+            "reason_code": "nonzero_exit",
+            "returncode": 1,
+            "schema_version": "1.0",
+            "stderr": "Traceback (most recent call last):\n  File \"/workspace/test_regression.py\", line 4, in <module>\n    assert read_file(\"sub/note.txt\") == \"note\\n\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/app.py\", line 8, in read_file\n    with open(path, encoding=\"utf-8\") as handle:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'files/note.txt'\n",
+            "stdout": "",
+            "truncated": false,
+            "verdict": "fail"
+          },
+          "message": "",
+          "reason_code": "nonzero_exit",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.test.0",
+          "verdict": "fail"
+        }
+      ],
+      "summary": "candidate build or regression tests did not pass"
+    },
+    {
+      "candidate_id": "6d127eda4136948aecc775c5d2bbe15001959b58817d28e60fef1e7b1b2cf092",
+      "overall": "rejected",
+      "schema_version": "1.0",
+      "snapshot": {
+        "archive_sha256": "a9a865db55ee17d6c90cf1b248c7d090d548fd40997b4370e2fdc4b86707dc91",
+        "commit": "3164ce200e24194a691835ed88d46a6467737839",
+        "schema_version": "1.0",
+        "tree_digest": "b143bdfdf7b386469b26e05edc9d205952602f3b"
+      },
+      "stages": [
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "baseline_usable",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.baseline",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [
+            "harness-sha256:1d90f3374b65406876082b2cc53a736d130514ff1307654550281629fde9102c"
+          ],
+          "command_result": null,
+          "message": "",
+          "reason_code": "trusted_harness_verified",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.harness.initial",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "snapshot_materialized",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.snapshot.build",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "patch_applied",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.patch.build",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": {
+            "command": {
+              "argv": [
+                "python",
+                "-m",
+                "py_compile",
+                "app.py"
+              ],
+              "cwd": ".",
+              "name": "compile",
+              "required": true,
+              "schema_version": "1.0",
+              "timeout_seconds": 30.0
+            },
+            "duration_seconds": 0.9797081998549402,
+            "reason_code": "nonzero_exit",
+            "returncode": 1,
+            "schema_version": "1.0",
+            "stderr": "  File \"app.py\", line 7\n    path = os.path.join(BASE_DIR, name.lstrip('/').lstrip('\\')\n                                                          ^\nSyntaxError: unterminated string literal (detected at line 7)\n",
+            "stdout": "",
+            "truncated": false,
+            "verdict": "fail"
+          },
+          "message": "",
+          "reason_code": "nonzero_exit",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.build.0",
+          "verdict": "fail"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "blocked_by_build",
+          "schema_version": "1.0",
+          "security_outcome": "not_available",
+          "stage": "candidate.test.0",
+          "verdict": "skipped"
+        }
+      ],
+      "summary": "candidate build or regression tests did not pass"
+    },
+    {
+      "candidate_id": "cab094b7a35767e7e4f585b46730bca4eac59f2d189c83a22fa5c10a349b765d",
+      "overall": "rejected",
+      "schema_version": "1.0",
+      "snapshot": {
+        "archive_sha256": "a9a865db55ee17d6c90cf1b248c7d090d548fd40997b4370e2fdc4b86707dc91",
+        "commit": "3164ce200e24194a691835ed88d46a6467737839",
+        "schema_version": "1.0",
+        "tree_digest": "b143bdfdf7b386469b26e05edc9d205952602f3b"
+      },
+      "stages": [
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "baseline_usable",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.baseline",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [
+            "harness-sha256:1d90f3374b65406876082b2cc53a736d130514ff1307654550281629fde9102c"
+          ],
+          "command_result": null,
+          "message": "",
+          "reason_code": "trusted_harness_verified",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.harness.initial",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "snapshot_materialized",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.snapshot.build",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "patch_applied",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.patch.build",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": {
+            "command": {
+              "argv": [
+                "python",
+                "-m",
+                "py_compile",
+                "app.py"
+              ],
+              "cwd": ".",
+              "name": "compile",
+              "required": true,
+              "schema_version": "1.0",
+              "timeout_seconds": 30.0
+            },
+            "duration_seconds": 0.9322405999992043,
+            "reason_code": "ok",
+            "returncode": 0,
+            "schema_version": "1.0",
+            "stderr": "",
+            "stdout": "",
+            "truncated": false,
+            "verdict": "pass"
+          },
+          "message": "",
+          "reason_code": "ok",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.build.0",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": {
+            "command": {
+              "argv": [
+                "python",
+                "test_regression.py"
+              ],
+              "cwd": ".",
+              "name": "regression",
+              "required": true,
+              "schema_version": "1.0",
+              "timeout_seconds": 30.0
+            },
+            "duration_seconds": 0.7588967001065612,
+            "reason_code": "ok",
+            "returncode": 0,
+            "schema_version": "1.0",
+            "stderr": "",
+            "stdout": "",
+            "truncated": false,
+            "verdict": "pass"
+          },
+          "message": "",
+          "reason_code": "ok",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.test.0",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "snapshot_materialized",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.snapshot.security",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "patch_applied",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.patch.security",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [
+            "harness-sha256:1d90f3374b65406876082b2cc53a736d130514ff1307654550281629fde9102c"
+          ],
+          "command_result": null,
+          "message": "",
+          "reason_code": "trusted_harness_verified",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.harness.security",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": {
+            "command": {
+              "argv": [
+                "python",
+                "/harness/poc.py"
+              ],
+              "cwd": ".",
+              "name": "poc",
+              "required": true,
+              "schema_version": "1.0",
+              "timeout_seconds": 30.0
+            },
+            "duration_seconds": 0.9745208998210728,
+            "reason_code": "ok",
+            "returncode": 0,
+            "schema_version": "1.0",
+            "stderr": "",
+            "stdout": "{\"harness_ok\":true,\"outcome\":\"vulnerable\",\"schema_version\":\"1.0\"}",
+            "truncated": false,
+            "verdict": "pass"
+          },
+          "message": "",
+          "reason_code": "patched_exploit_persists",
+          "schema_version": "1.0",
+          "security_outcome": "vulnerable",
+          "stage": "candidate.poc",
+          "verdict": "fail"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "scanner_not_configured",
+          "schema_version": "1.0",
+          "security_outcome": "not_available",
+          "stage": "candidate.scanner",
+          "verdict": "skipped"
+        }
+      ],
+      "summary": "security signal persists after patch"
+    }
+  ]
+}

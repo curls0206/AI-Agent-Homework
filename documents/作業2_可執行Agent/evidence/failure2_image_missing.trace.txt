@@ -1,0 +1,6 @@
+run_id=32ec651d418e4cae8aad3e3c38919679  task_id=course-cwe79
+
+1  Input        使用者提供漏洞任務 course-cwe79
+2  Action       Tool Call: Oracle.baseline → Podman 容器執行 build / regression / PoC
+3  Observation  baseline 不可用：baseline build or regression tests did not pass  （baseline.build.0 infra_error/podman_run_error）
+4  Result       chosen=無（未取得 verified_fix）  elapsed=1.316577s

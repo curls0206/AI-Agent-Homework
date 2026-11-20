@@ -1,0 +1,11 @@
+{
+  "model": "llama3.3:70b",
+  "outcome": "verified_fix（成功）",
+  "rounds": 2,
+  "candidates": 2,
+  "validations": 2,
+  "elapsed_seconds": 36.5,
+  "narrative": "這次執行完整呈現 ReAct 迴圈。第 1 輪（步驟 6–10）：LLM 產生的候選在 f-string 內使用巢狀雙引號，容器內 Python 3.11 回報 SyntaxError，build 階段失敗，Oracle 判定 rejected，後續 regression 與 PoC 因 blocked_by_build 不執行。Agent 把這次失敗（verdict 與原因）寫入失敗記憶，並於第 2 輪（步驟 11–15）將它放入 prompt 請 LLM 避免重蹈覆轍；新候選改用標準函式庫 `html.escape`，通過 build、regression，且 PoC 由 vulnerable 變為 blocked（patched_exploit_blocked），判定 verified_fix，Agent 選用並結束。全程 2 次 LLM 呼叫（701 prompt／116 completion tokens）、2 次容器驗證，每一步都記錄在 trace，沒有任何未經驗證的修補被輸出。",
+  "diff": "diff --git a/app.py b/app.py\n--- a/app.py\n+++ b/app.py\n@@ -1,2 +1,2 @@\n def render_name(name: str) -> str:\n-    return f\"<p>{name}</p>\"\n+    import html; return f\"<p>{html.escape(name)}</p>\"",
+  "failure_note": "**F4（真實 LLM 執行中發生）**：LLM 產生語法錯誤的修補（第 4 節步驟 6–10）。狀況：build 階段 `fail/nonzero_exit`，stderr 為 `SyntaxError: f-string: unmatched '('`；原因：模型在 Python 3.11 不允許的位置於 f-string 內重用雙引號；Agent 處理：判定 rejected，不選用，並把失敗記入記憶；解決方法：下一輪帶著失敗回饋重新生成，第 2 輪即得到可通過驗證的修補。這顯示 build 階段能擋下「看起來合理但無法執行」的修補，是預審與驗證存在的原因。"
+}

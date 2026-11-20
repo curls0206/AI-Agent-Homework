@@ -1,0 +1,7 @@
+diff --git a/app.py b/app.py
+--- a/app.py
++++ b/app.py
+@@ -1,2 +1,2 @@
+ def render_name(name: str) -> str:
+-    return f"<p>{name}</p>"
++    import html; return f"<p>{html.escape(name)}</p>"

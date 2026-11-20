@@ -1,0 +1,530 @@
+{
+  "all_candidates": [
+    {
+      "candidate_id": "fbdb09a4ae454a706f3cb0692bf043f0973d52444c80ccb4024971f370787353",
+      "diff": "diff --git a/app.py b/app.py\n--- a/app.py\n+++ b/app.py\n@@ -1,2 +1,2 @@\n def render_name(name: str) -> str:\n-    return f\"<p>{name}</p>\"\n+    import html; return f\"<p>{html.escape(name)}</p>\"\n",
+      "generated_by": "llama3.3:70b",
+      "rationale": "model pool sample 1",
+      "schema_version": "1.0",
+      "target_location": {
+        "confidence": 1.0,
+        "end_line": 2,
+        "file_path": "app.py",
+        "function_name": "render_name",
+        "rationale": "The user-controlled name is interpolated into HTML without encoding.",
+        "schema_version": "1.0",
+        "start_line": 1
+      },
+      "task_id": "course-cwe79"
+    }
+  ],
+  "attempts": 1,
+  "baseline": {
+    "schema_version": "1.0",
+    "snapshot": {
+      "archive_sha256": "1290b98dc857053808ed27a990d23f826f8130c156390fe298d605f907399342",
+      "commit": "3d052bb39920b1e3061b37a2a7a5d3fd8755aaf2",
+      "schema_version": "1.0",
+      "tree_digest": "7445d13024e860c6c93b1c0e0b03b861b5bae168"
+    },
+    "stages": [
+      {
+        "artifacts": [
+          "harness-sha256:10356a806d8412c6c864d6e6ddf098ba7a7512ac470f983d1ebd12d59fc0bb71"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "trusted_harness_verified",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.harness.initial",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [
+          "validation-plan-sha256:2ce8cc5e468478ecbc5bda33e418f7c92205f7e883e3737769f5c026095ccc71"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "snapshot_materialized",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.snapshot.build",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "-m",
+              "py_compile",
+              "app.py"
+            ],
+            "cwd": ".",
+            "name": "compile",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 0.6840186938643456,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "ok",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.build.0",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "test_regression.py"
+            ],
+            "cwd": ".",
+            "name": "regression",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 0.36527353385463357,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "ok",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.test.0",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "snapshot_materialized",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.snapshot.security",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [
+          "harness-sha256:10356a806d8412c6c864d6e6ddf098ba7a7512ac470f983d1ebd12d59fc0bb71"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "trusted_harness_verified",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.harness.security",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "/harness/poc.py"
+            ],
+            "cwd": ".",
+            "name": "poc",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 0.5284803290851414,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "{\"harness_ok\":true,\"outcome\":\"vulnerable\",\"schema_version\":\"1.0\"}",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "baseline_vulnerability_reproduced",
+        "schema_version": "1.0",
+        "security_outcome": "vulnerable",
+        "stage": "baseline.poc",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "scanner_not_configured",
+        "schema_version": "1.0",
+        "security_outcome": "not_available",
+        "stage": "baseline.scanner",
+        "verdict": "skipped"
+      }
+    ],
+    "summary": "baseline vulnerability evidence established",
+    "task_id": "course-cwe79",
+    "usable": true
+  },
+  "budget": {
+    "batch_size": 2,
+    "max_candidates": 8,
+    "max_cost_usd": 5.0,
+    "max_elapsed_seconds": 1800.0,
+    "max_model_calls": 20,
+    "max_rounds": 4,
+    "max_validations": 8,
+    "schema_version": "1.0"
+  },
+  "chosen": {
+    "candidate_id": "fbdb09a4ae454a706f3cb0692bf043f0973d52444c80ccb4024971f370787353",
+    "diff": "diff --git a/app.py b/app.py\n--- a/app.py\n+++ b/app.py\n@@ -1,2 +1,2 @@\n def render_name(name: str) -> str:\n-    return f\"<p>{name}</p>\"\n+    import html; return f\"<p>{html.escape(name)}</p>\"\n",
+    "generated_by": "llama3.3:70b",
+    "rationale": "model pool sample 1",
+    "schema_version": "1.0",
+    "target_location": {
+      "confidence": 1.0,
+      "end_line": 2,
+      "file_path": "app.py",
+      "function_name": "render_name",
+      "rationale": "The user-controlled name is interpolated into HTML without encoding.",
+      "schema_version": "1.0",
+      "start_line": 1
+    },
+    "task_id": "course-cwe79"
+  },
+  "cost": {
+    "candidates_seen": 1,
+    "candidates_validated": 1,
+    "completion_tokens": 47,
+    "cost_usd": 0.0,
+    "elapsed_seconds": 15.135959594044834,
+    "model_calls": 1,
+    "persistence_seconds": 1.0,
+    "prompt_tokens": 342,
+    "rounds": 1,
+    "schema_version": "1.0"
+  },
+  "input_fingerprint": "fb46ebf3f86fee2a3d01b444cafe69210fc111f082f608aa866ba11248720f70",
+  "run_id": "30a8ae72f5c04bf38915c4d9d45f5d6a",
+  "schema_version": "1.0",
+  "task_id": "course-cwe79",
+  "trace": [
+    {
+      "attributes": [
+        [
+          "run_id",
+          "30a8ae72f5c04bf38915c4d9d45f5d6a"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_started",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 0,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [],
+      "candidate_id": null,
+      "event": "baseline_ready",
+      "message": "baseline vulnerability evidence established",
+      "schema_version": "1.0",
+      "sequence": 1,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [
+        [
+          "locations",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "localized",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 2,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [
+        [
+          "count",
+          "1"
+        ],
+        [
+          "round",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "candidates_generated",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 3,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [],
+      "candidate_id": "fbdb09a4ae454a706f3cb0692bf043f0973d52444c80ccb4024971f370787353",
+      "event": "critic_pass",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 4,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [
+        [
+          "verdict",
+          "verified_fix"
+        ]
+      ],
+      "candidate_id": "fbdb09a4ae454a706f3cb0692bf043f0973d52444c80ccb4024971f370787353",
+      "event": "candidate_validated",
+      "message": "required differential security evidence passed",
+      "schema_version": "1.0",
+      "sequence": 5,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [],
+      "candidate_id": "fbdb09a4ae454a706f3cb0692bf043f0973d52444c80ccb4024971f370787353",
+      "event": "verified_fix_selected",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 6,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [
+        [
+          "chosen",
+          "fbdb09a4ae454a706f3cb0692bf043f0973d52444c80ccb4024971f370787353"
+        ],
+        [
+          "elapsed",
+          "14.135960"
+        ],
+        [
+          "input_fingerprint",
+          "fb46ebf3f86fee2a3d01b444cafe69210fc111f082f608aa866ba11248720f70"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_finished",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 7,
+      "task_id": "course-cwe79"
+    }
+  ],
+  "validations": [
+    {
+      "candidate_id": "fbdb09a4ae454a706f3cb0692bf043f0973d52444c80ccb4024971f370787353",
+      "overall": "verified_fix",
+      "schema_version": "1.0",
+      "snapshot": {
+        "archive_sha256": "1290b98dc857053808ed27a990d23f826f8130c156390fe298d605f907399342",
+        "commit": "3d052bb39920b1e3061b37a2a7a5d3fd8755aaf2",
+        "schema_version": "1.0",
+        "tree_digest": "7445d13024e860c6c93b1c0e0b03b861b5bae168"
+      },
+      "stages": [
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "baseline_usable",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.baseline",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [
+            "harness-sha256:10356a806d8412c6c864d6e6ddf098ba7a7512ac470f983d1ebd12d59fc0bb71"
+          ],
+          "command_result": null,
+          "message": "",
+          "reason_code": "trusted_harness_verified",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.harness.initial",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "snapshot_materialized",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.snapshot.build",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "patch_applied",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.patch.build",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": {
+            "command": {
+              "argv": [
+                "python",
+                "-m",
+                "py_compile",
+                "app.py"
+              ],
+              "cwd": ".",
+              "name": "compile",
+              "required": true,
+              "schema_version": "1.0",
+              "timeout_seconds": 30.0
+            },
+            "duration_seconds": 0.44200641894713044,
+            "reason_code": "ok",
+            "returncode": 0,
+            "schema_version": "1.0",
+            "stderr": "",
+            "stdout": "",
+            "truncated": false,
+            "verdict": "pass"
+          },
+          "message": "",
+          "reason_code": "ok",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.build.0",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": {
+            "command": {
+              "argv": [
+                "python",
+                "test_regression.py"
+              ],
+              "cwd": ".",
+              "name": "regression",
+              "required": true,
+              "schema_version": "1.0",
+              "timeout_seconds": 30.0
+            },
+            "duration_seconds": 0.356102935038507,
+            "reason_code": "ok",
+            "returncode": 0,
+            "schema_version": "1.0",
+            "stderr": "",
+            "stdout": "",
+            "truncated": false,
+            "verdict": "pass"
+          },
+          "message": "",
+          "reason_code": "ok",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.test.0",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "snapshot_materialized",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.snapshot.security",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "patch_applied",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.patch.security",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [
+            "harness-sha256:10356a806d8412c6c864d6e6ddf098ba7a7512ac470f983d1ebd12d59fc0bb71"
+          ],
+          "command_result": null,
+          "message": "",
+          "reason_code": "trusted_harness_verified",
+          "schema_version": "1.0",
+          "security_outcome": null,
+          "stage": "candidate.harness.security",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": {
+            "command": {
+              "argv": [
+                "python",
+                "/harness/poc.py"
+              ],
+              "cwd": ".",
+              "name": "poc",
+              "required": true,
+              "schema_version": "1.0",
+              "timeout_seconds": 30.0
+            },
+            "duration_seconds": 0.39016490895301104,
+            "reason_code": "ok",
+            "returncode": 0,
+            "schema_version": "1.0",
+            "stderr": "",
+            "stdout": "{\"harness_ok\":true,\"outcome\":\"blocked\",\"schema_version\":\"1.0\"}",
+            "truncated": false,
+            "verdict": "pass"
+          },
+          "message": "",
+          "reason_code": "patched_exploit_blocked",
+          "schema_version": "1.0",
+          "security_outcome": "blocked",
+          "stage": "candidate.poc",
+          "verdict": "pass"
+        },
+        {
+          "artifacts": [],
+          "command_result": null,
+          "message": "",
+          "reason_code": "scanner_not_configured",
+          "schema_version": "1.0",
+          "security_outcome": "not_available",
+          "stage": "candidate.scanner",
+          "verdict": "skipped"
+        }
+      ],
+      "summary": "required differential security evidence passed"
+    }
+  ]
+}

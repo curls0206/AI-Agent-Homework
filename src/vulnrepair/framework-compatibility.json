@@ -1,0 +1,30 @@
+{
+  "metadata_schema_version": "1.0",
+  "framework": {
+    "name": "Multi-Agent Vulnerability Repair Framework",
+    "distribution": "vulnrepair",
+    "version": "0.3.0",
+    "python_requires": ">=3.11",
+    "repository": "https://github.com/NTPUNSL-CS/multi-agent-vulnerability-repair-system",
+    "license": "MIT",
+    "scope": "framework-only",
+    "versioning": "semver"
+  },
+  "contracts": {
+    "scenario_schema_version": "1.0",
+    "repair_result_schema_version": "1.0",
+    "evidence_schema_version": "1.0",
+    "canonical_result": "repair-result.json",
+    "auxiliary_artifacts": [
+      "trace.jsonl",
+      "chosen.diff"
+    ]
+  },
+  "research_integration": {
+    "pin_kind": "git-commit-sha",
+    "commit_sha_length": 40,
+    "install_requirement_template": "vulnrepair @ git+https://github.com/NTPUNSL-CS/multi-agent-vulnerability-repair-system.git@{commit}",
+    "provenance_command": "vulnrepair provenance",
+    "compatibility_policy": "docs/RESEARCH_INTEGRATION.md"
+  }
+}

@@ -1,0 +1,31 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.coverage
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.venv/
+build/
+dist/
+runs/
+.omx/
+
+# Paper / thesis files
+paper.docx
+paper.tex
+llncs.cls
+splncs04.bst
+~$*.docx
+~$*.xlsx
+~$*.pptx
+_build/node_modules/
+fixtures/
+_scratch/
+**/node_modules/
+out/
+
+# not part of the source repository
+*.docx
+作業分配計畫.md
+AI Agent 課程作業與評分規範*.pdf

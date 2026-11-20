@@ -1,0 +1,367 @@
+{
+  "all_candidates": [],
+  "attempts": 4,
+  "baseline": {
+    "schema_version": "1.0",
+    "snapshot": {
+      "archive_sha256": "9526c0fc9cc7d4d91febf6e072ad25b80a8f2d79b3e20168fdec43021e8c9ffe",
+      "commit": "249fba18cde03c8d2e72c66554382317f0f93e0d",
+      "schema_version": "1.0",
+      "tree_digest": "68189df8b52e14914b45ee88d0974fe795573eaf"
+    },
+    "stages": [
+      {
+        "artifacts": [
+          "harness-sha256:52226285eb901ce5ee618dd940ed95262a351980ff515014de30bf4cb17e2f2c"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "trusted_harness_verified",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.harness.initial",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [
+          "validation-plan-sha256:6c52b4c97bae3a15d8682c73af1d6ed8ad57f73d1a94db9c39e27431dcc6f35c"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "snapshot_materialized",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.snapshot.build",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "-m",
+              "py_compile",
+              "app.py"
+            ],
+            "cwd": ".",
+            "name": "compile",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 1.1442398999352008,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "ok",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.build.0",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "test_regression.py"
+            ],
+            "cwd": ".",
+            "name": "regression",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 0.8957167998887599,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "ok",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.test.0",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "snapshot_materialized",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.snapshot.security",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [
+          "harness-sha256:52226285eb901ce5ee618dd940ed95262a351980ff515014de30bf4cb17e2f2c"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "trusted_harness_verified",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.harness.security",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "/harness/poc.py"
+            ],
+            "cwd": ".",
+            "name": "poc",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 0.9563629000913352,
+          "reason_code": "ok",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "{\"harness_ok\":true,\"outcome\":\"vulnerable\",\"schema_version\":\"1.0\"}",
+          "truncated": false,
+          "verdict": "pass"
+        },
+        "message": "",
+        "reason_code": "baseline_vulnerability_reproduced",
+        "schema_version": "1.0",
+        "security_outcome": "vulnerable",
+        "stage": "baseline.poc",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "scanner_not_configured",
+        "schema_version": "1.0",
+        "security_outcome": "not_available",
+        "stage": "baseline.scanner",
+        "verdict": "skipped"
+      }
+    ],
+    "summary": "baseline vulnerability evidence established",
+    "task_id": "course-cwe78",
+    "usable": true
+  },
+  "budget": {
+    "batch_size": 2,
+    "max_candidates": 8,
+    "max_cost_usd": 5.0,
+    "max_elapsed_seconds": 1800.0,
+    "max_model_calls": 20,
+    "max_rounds": 4,
+    "max_validations": 8,
+    "schema_version": "1.0"
+  },
+  "chosen": null,
+  "cost": {
+    "candidates_seen": 0,
+    "candidates_validated": 0,
+    "completion_tokens": 0,
+    "cost_usd": 0.0,
+    "elapsed_seconds": 92.67234620009549,
+    "model_calls": 4,
+    "persistence_seconds": 1.0,
+    "prompt_tokens": 0,
+    "rounds": 4,
+    "schema_version": "1.0"
+  },
+  "input_fingerprint": "bb66a040ae24954f686dae88a16bc95f4e748439ae32fcb3eaf256211328ee5b",
+  "run_id": "a40202f65c734e819ee38927cb239c8a",
+  "schema_version": "1.0",
+  "task_id": "course-cwe78",
+  "trace": [
+    {
+      "attributes": [
+        [
+          "run_id",
+          "a40202f65c734e819ee38927cb239c8a"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_started",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 0,
+      "task_id": "course-cwe78"
+    },
+    {
+      "attributes": [],
+      "candidate_id": null,
+      "event": "baseline_ready",
+      "message": "baseline vulnerability evidence established",
+      "schema_version": "1.0",
+      "sequence": 1,
+      "task_id": "course-cwe78"
+    },
+    {
+      "attributes": [
+        [
+          "locations",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "localized",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 2,
+      "task_id": "course-cwe78"
+    },
+    {
+      "attributes": [
+        [
+          "count",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "provider_errors",
+      "message": "llama3.3:70b sample 1: ValueError: no valid changes found in JSON",
+      "schema_version": "1.0",
+      "sequence": 3,
+      "task_id": "course-cwe78"
+    },
+    {
+      "attributes": [
+        [
+          "round",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "round_empty",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 4,
+      "task_id": "course-cwe78"
+    },
+    {
+      "attributes": [
+        [
+          "count",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "provider_errors",
+      "message": "llama3.3:70b sample 1: ValueError: no valid changes found in JSON",
+      "schema_version": "1.0",
+      "sequence": 5,
+      "task_id": "course-cwe78"
+    },
+    {
+      "attributes": [
+        [
+          "round",
+          "2"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "round_empty",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 6,
+      "task_id": "course-cwe78"
+    },
+    {
+      "attributes": [
+        [
+          "count",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "provider_errors",
+      "message": "llama3.3:70b sample 1: ValueError: no valid changes found in JSON",
+      "schema_version": "1.0",
+      "sequence": 7,
+      "task_id": "course-cwe78"
+    },
+    {
+      "attributes": [
+        [
+          "round",
+          "3"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "round_empty",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 8,
+      "task_id": "course-cwe78"
+    },
+    {
+      "attributes": [
+        [
+          "count",
+          "1"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "provider_errors",
+      "message": "llama3.3:70b sample 1: ValueError: no valid changes found in JSON",
+      "schema_version": "1.0",
+      "sequence": 9,
+      "task_id": "course-cwe78"
+    },
+    {
+      "attributes": [
+        [
+          "round",
+          "4"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "round_empty",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 10,
+      "task_id": "course-cwe78"
+    },
+    {
+      "attributes": [
+        [
+          "chosen",
+          "none"
+        ],
+        [
+          "elapsed",
+          "91.672346"
+        ],
+        [
+          "input_fingerprint",
+          "bb66a040ae24954f686dae88a16bc95f4e748439ae32fcb3eaf256211328ee5b"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_finished",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 11,
+      "task_id": "course-cwe78"
+    }
+  ],
+  "validations": []
+}

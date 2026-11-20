@@ -1,0 +1,13 @@
+diff --git a/app.py b/app.py
+--- a/app.py
++++ b/app.py
+@@ -3,7 +3,7 @@
+ BASE_DIR = "files"
+ 
+ 
+-def read_file(name: str) -> str:
++def read_file(filename: str) -> str:
+-    path = os.path.join(BASE_DIR, name)
++    path = os.path.join(BASE_DIR, filename.lstrip("./"))
+     with open(path, encoding="utf-8") as handle:
+         return handle.read()

@@ -1,0 +1,179 @@
+{
+  "all_candidates": [],
+  "attempts": 0,
+  "baseline": {
+    "schema_version": "1.0",
+    "snapshot": {
+      "archive_sha256": "746a5957ceafd517741612a368928dbb5f36731461c764cc034e98a0586b33b7",
+      "commit": "1323e81a53d1c1581ed6bd63668f598975037a40",
+      "schema_version": "1.0",
+      "tree_digest": "7445d13024e860c6c93b1c0e0b03b861b5bae168"
+    },
+    "stages": [
+      {
+        "artifacts": [
+          "harness-sha256:10356a806d8412c6c864d6e6ddf098ba7a7512ac470f983d1ebd12d59fc0bb71"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "trusted_harness_verified",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.harness.initial",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [
+          "validation-plan-sha256:e6dbb97862124f52900c488429b77e0986cc6afac0629c8523e57f2b8eea8b95"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "snapshot_materialized",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.snapshot.build",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "-m",
+              "py_compile",
+              "app.py"
+            ],
+            "cwd": ".",
+            "name": "compile",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 30.0
+          },
+          "duration_seconds": 0.5289800001773983,
+          "reason_code": "podman_run_error",
+          "returncode": 125,
+          "schema_version": "1.0",
+          "stderr": "Error: sha256:0000000000000000000000000000000000000000000000000000000000000000: image not known\n",
+          "stdout": "",
+          "truncated": false,
+          "verdict": "infra_error"
+        },
+        "message": "",
+        "reason_code": "podman_run_error",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.build.0",
+        "verdict": "infra_error"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "blocked_by_build",
+        "schema_version": "1.0",
+        "security_outcome": "not_available",
+        "stage": "baseline.test.0",
+        "verdict": "skipped"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "build_or_tests_failed",
+        "schema_version": "1.0",
+        "security_outcome": "not_available",
+        "stage": "baseline.poc",
+        "verdict": "skipped"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "build_or_tests_failed",
+        "schema_version": "1.0",
+        "security_outcome": "not_available",
+        "stage": "baseline.scanner",
+        "verdict": "skipped"
+      }
+    ],
+    "summary": "baseline build or regression tests did not pass",
+    "task_id": "course-cwe79",
+    "usable": false
+  },
+  "budget": {
+    "batch_size": 3,
+    "max_candidates": 24,
+    "max_cost_usd": 5.0,
+    "max_elapsed_seconds": 2400.0,
+    "max_model_calls": 20,
+    "max_rounds": 2,
+    "max_validations": 20,
+    "schema_version": "1.0"
+  },
+  "chosen": null,
+  "cost": {
+    "candidates_seen": 0,
+    "candidates_validated": 0,
+    "completion_tokens": 0,
+    "cost_usd": 0.0,
+    "elapsed_seconds": 2.3165774000808597,
+    "model_calls": 0,
+    "persistence_seconds": 1.0,
+    "prompt_tokens": 0,
+    "rounds": 0,
+    "schema_version": "1.0"
+  },
+  "input_fingerprint": "91fc431a3ed89de69afbce4329c77710a6b5f024526e9f158ddac648ac5840c6",
+  "run_id": "32ec651d418e4cae8aad3e3c38919679",
+  "schema_version": "1.0",
+  "task_id": "course-cwe79",
+  "trace": [
+    {
+      "attributes": [
+        [
+          "run_id",
+          "32ec651d418e4cae8aad3e3c38919679"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_started",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 0,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [],
+      "candidate_id": null,
+      "event": "baseline_unusable",
+      "message": "baseline build or regression tests did not pass",
+      "schema_version": "1.0",
+      "sequence": 1,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [
+        [
+          "chosen",
+          "none"
+        ],
+        [
+          "elapsed",
+          "1.316577"
+        ],
+        [
+          "input_fingerprint",
+          "91fc431a3ed89de69afbce4329c77710a6b5f024526e9f158ddac648ac5840c6"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_finished",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 2,
+      "task_id": "course-cwe79"
+    }
+  ],
+  "validations": []
+}

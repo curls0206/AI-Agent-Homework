@@ -1,0 +1,178 @@
+{
+  "all_candidates": [],
+  "attempts": 0,
+  "baseline": {
+    "schema_version": "1.0",
+    "snapshot": {
+      "archive_sha256": "74c97a08ab1218ba1a35cd8fbf59db1e4e09f022a90a4d9a2b9361300dac3aa6",
+      "commit": "aa1812b2685130b3ca34b3d86d636b94e08a5ebc",
+      "schema_version": "1.0",
+      "tree_digest": "7445d13024e860c6c93b1c0e0b03b861b5bae168"
+    },
+    "stages": [
+      {
+        "artifacts": [
+          "harness-sha256:10356a806d8412c6c864d6e6ddf098ba7a7512ac470f983d1ebd12d59fc0bb71"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "trusted_harness_verified",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.harness.initial",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [
+          "validation-plan-sha256:0a62ee9293b492e615a2ebceb024cec3c47ebb18e169bc5499225ebffe8c0040"
+        ],
+        "command_result": null,
+        "message": "",
+        "reason_code": "snapshot_materialized",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.snapshot.build",
+        "verdict": "pass"
+      },
+      {
+        "artifacts": [],
+        "command_result": {
+          "command": {
+            "argv": [
+              "python",
+              "-c",
+              "import time; time.sleep(60)"
+            ],
+            "cwd": ".",
+            "name": "slow-build",
+            "required": true,
+            "schema_version": "1.0",
+            "timeout_seconds": 3.0
+          },
+          "duration_seconds": 3.023601100081578,
+          "reason_code": "timeout",
+          "returncode": 0,
+          "schema_version": "1.0",
+          "stderr": "",
+          "stdout": "",
+          "truncated": false,
+          "verdict": "timeout"
+        },
+        "message": "",
+        "reason_code": "timeout",
+        "schema_version": "1.0",
+        "security_outcome": null,
+        "stage": "baseline.build.0",
+        "verdict": "timeout"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "blocked_by_build",
+        "schema_version": "1.0",
+        "security_outcome": "not_available",
+        "stage": "baseline.test.0",
+        "verdict": "skipped"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "build_or_tests_failed",
+        "schema_version": "1.0",
+        "security_outcome": "not_available",
+        "stage": "baseline.poc",
+        "verdict": "skipped"
+      },
+      {
+        "artifacts": [],
+        "command_result": null,
+        "message": "",
+        "reason_code": "build_or_tests_failed",
+        "schema_version": "1.0",
+        "security_outcome": "not_available",
+        "stage": "baseline.scanner",
+        "verdict": "skipped"
+      }
+    ],
+    "summary": "baseline build or regression tests did not pass",
+    "task_id": "course-cwe79",
+    "usable": false
+  },
+  "budget": {
+    "batch_size": 3,
+    "max_candidates": 24,
+    "max_cost_usd": 5.0,
+    "max_elapsed_seconds": 2400.0,
+    "max_model_calls": 20,
+    "max_rounds": 2,
+    "max_validations": 20,
+    "schema_version": "1.0"
+  },
+  "chosen": null,
+  "cost": {
+    "candidates_seen": 0,
+    "candidates_validated": 0,
+    "completion_tokens": 0,
+    "cost_usd": 0.0,
+    "elapsed_seconds": 4.913738999981433,
+    "model_calls": 0,
+    "persistence_seconds": 1.0,
+    "prompt_tokens": 0,
+    "rounds": 0,
+    "schema_version": "1.0"
+  },
+  "input_fingerprint": "b0f232f4f72591cbce4cae0c1c8f5a9ac1303520537ba1e73dce7d515529fa69",
+  "run_id": "f60679bb74e44fa09b62356ab8da1b37",
+  "schema_version": "1.0",
+  "task_id": "course-cwe79",
+  "trace": [
+    {
+      "attributes": [
+        [
+          "run_id",
+          "f60679bb74e44fa09b62356ab8da1b37"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_started",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 0,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [],
+      "candidate_id": null,
+      "event": "baseline_unusable",
+      "message": "baseline build or regression tests did not pass",
+      "schema_version": "1.0",
+      "sequence": 1,
+      "task_id": "course-cwe79"
+    },
+    {
+      "attributes": [
+        [
+          "chosen",
+          "none"
+        ],
+        [
+          "elapsed",
+          "3.913739"
+        ],
+        [
+          "input_fingerprint",
+          "b0f232f4f72591cbce4cae0c1c8f5a9ac1303520537ba1e73dce7d515529fa69"
+        ]
+      ],
+      "candidate_id": null,
+      "event": "run_finished",
+      "message": "",
+      "schema_version": "1.0",
+      "sequence": 2,
+      "task_id": "course-cwe79"
+    }
+  ],
+  "validations": []
+}
